@@ -1,5 +1,6 @@
 from mpExperience import MpExperience
 from mpParamXp import MpParamXp
+import mpShoutdownNic as handover
 import os
 
 
@@ -101,6 +102,8 @@ class MpExperienceQUIC(MpExperience):
 		self.mpTopo.commandTo(self.mpConfig.client, cmd)
 
 		cmd = self.getQUICClientCmd()
+		
+		self.mpTopo.commandTo(self.mpConfig.client, handover.run())
 		self.mpTopo.commandTo(self.mpConfig.client, cmd)
 		self.mpTopo.commandTo(self.mpConfig.server, "netstat -sn > netstat_server_after")
 		self.mpTopo.commandTo(self.mpConfig.client, "netstat -sn > netstat_client_after")
