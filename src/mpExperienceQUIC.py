@@ -1,6 +1,6 @@
 from mpExperience import MpExperience
 from mpParamXp import MpParamXp
-import mpShoutdownNic as handover
+from multiprocessing import Process,Queue
 import os
 
 
@@ -61,8 +61,11 @@ class MpExperienceQUIC(MpExperience):
 		return s
 
 	def getQUICClientCmd(self):
-		s = "./main"
-		if int(self.multipath) > 0:
+		
+		if int(self.multipath) <= 0:
+			s = "./main"
+		else:
+			s = "python /home/mininte/git/minintopo/src/mpShoutdownNic.py & ./main"
 			s += " -m"
 		s += " -c https://" + self.mpConfig.getServerIP() + ":6121/random &>" + MpExperienceQUIC.CLIENT_LOG
 		print(s)
@@ -102,8 +105,7 @@ class MpExperienceQUIC(MpExperience):
 		self.mpTopo.commandTo(self.mpConfig.client, cmd)
 
 		cmd = self.getQUICClientCmd()
-		
-		self.mpTopo.commandTo(self.mpConfig.client, handover.run())
+
 		self.mpTopo.commandTo(self.mpConfig.client, cmd)
 		self.mpTopo.commandTo(self.mpConfig.server, "netstat -sn > netstat_server_after")
 		self.mpTopo.commandTo(self.mpConfig.client, "netstat -sn > netstat_client_after")
