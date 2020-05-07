@@ -16,9 +16,9 @@ turn_on () {
 
 run () {
     echo "SATANAS"
-    sleep 30
+    sleep 15
     shutdown
-    sleep 30
+    sleep 15
     turn_on
 }
 
