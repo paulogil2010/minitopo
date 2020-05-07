@@ -1,6 +1,5 @@
 from mpExperience import MpExperience
 from mpParamXp import MpParamXp
-from multiprocessing import Process,Queue
 import os
 
 
@@ -68,7 +67,7 @@ class MpExperienceQUIC(MpExperience):
 		else:
 			print("Command QUIC multipath >= 1")
 			print()
-			s = "python /home/mininte/git/minintopo/src/mpShoutdownNic.py & ./main"
+			s = "python /home/mininte/git/minintopo/src/mpShoutdownNic.py > satanas.txt & ./main"
 			s += " -m"
 		s += " -c https://" + self.mpConfig.getServerIP() + ":6121/random &>" + MpExperienceQUIC.CLIENT_LOG
 		print(s)
