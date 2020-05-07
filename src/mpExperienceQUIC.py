@@ -63,8 +63,11 @@ class MpExperienceQUIC(MpExperience):
 	def getQUICClientCmd(self):
 		
 		if int(self.multipath) <= 0:
+			print("Command QUIC multipath >= 0")
 			s = "./main"
 		else:
+			print("Command QUIC multipath >= 1")
+			print()
 			s = "python /home/mininte/git/minintopo/src/mpShoutdownNic.py & ./main"
 			s += " -m"
 		s += " -c https://" + self.mpConfig.getServerIP() + ":6121/random &>" + MpExperienceQUIC.CLIENT_LOG
