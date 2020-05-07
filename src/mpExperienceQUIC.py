@@ -60,14 +60,11 @@ class MpExperienceQUIC(MpExperience):
 		return s
 
 	def getQUICClientCmd(self):
-		
+
 		if int(self.multipath) <= 0:
-			print("Command QUIC multipath >= 0")
 			s = "./main"
 		else:
-			print("Command QUIC multipath >= 1")
-			print()
-			s = "python /home/mininte/git/minintopo/src/mpShoutdownNic.py > satanas.txt & ./main"
+			s = "sh /home/mininet/git/minitopo/src/mpShoutdownNic.sh & ./main"
 			s += " -m"
 		s += " -c https://" + self.mpConfig.getServerIP() + ":6121/random &>" + MpExperienceQUIC.CLIENT_LOG
 		print(s)
@@ -107,9 +104,6 @@ class MpExperienceQUIC(MpExperience):
 		self.mpTopo.commandTo(self.mpConfig.client, cmd)
 
 		cmd = self.getQUICClientCmd()
-		print()
-		print("CARAI")
-		print()
 		self.mpTopo.commandTo(self.mpConfig.client, cmd)
 		self.mpTopo.commandTo(self.mpConfig.server, "netstat -sn > netstat_server_after")
 		self.mpTopo.commandTo(self.mpConfig.client, "netstat -sn > netstat_client_after")
