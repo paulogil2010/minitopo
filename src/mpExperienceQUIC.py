@@ -64,7 +64,7 @@ class MpExperienceQUIC(MpExperience):
 		if int(self.multipath) <= 0:
 			s = "./main"
 		else:
-			s = "sh /home/mininet/git/minitopo/src/mpShoutdownNic.sh & ./main"
+			s = "sh /home/mininet/git/minitopo/src/mpShoutdownNic.sh 2> /dev/null & ./main"
 			s += " -m"
 		s += " -c https://" + self.mpConfig.getServerIP() + ":6121/random &>" + MpExperienceQUIC.CLIENT_LOG
 		print(s)

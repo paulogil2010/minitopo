@@ -2,13 +2,13 @@
 
 shutdown () {
     HOUR=$(date +%H:%M:%S)
-    command=$(ifconfig Client-eth0 down)
-    echo "$HOUR : $command" > ./up-down-int.txt
+    command=$(ifconfig Client-eth1 down)
+    echo "$HOUR : $command" >> ./up-down-int.txt
 }
 
 turn_on () {
     HOUR=$(date +%H:%M:%S)
-    command=$(ifconfig Client-eth0 up)
+    command=$(ifconfig Client-eth1 up)
     echo "$HOUR : $command" >> ./up-down-int.txt
 }
 
@@ -19,3 +19,5 @@ run () {
     sleep 3
     turn_on
 }
+
+run
