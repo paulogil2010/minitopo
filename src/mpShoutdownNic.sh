@@ -15,11 +15,14 @@ turn_on () {
 }
 
 run () {
-    echo "SATANAS"
-    sleep 15
-    shutdown
-    sleep 15
-    turn_on
+    ifconfig Client-eth1
+    output=$?
+    if [output == 1]; then
+        sleep 15
+        shutdown
+        sleep 15
+        turn_on
+    fi
 }
 
 run
