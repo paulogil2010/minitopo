@@ -96,8 +96,8 @@ class MpExperienceQUIC(MpExperience):
 		self.mpTopo.commandTo(self.mpConfig.server, "netstat -sn > netstat_server_before")
 		self.mpTopo.commandTo(self.mpConfig.server, cmd)
 
-		self.mpTopo.commandTo(self.mpConfig.client, "sleep 2")
 		self.mpTopo.commandTo(self.mpConfig.client, "ifstat -i Client-eth0,Client-eth1 > client_ifstat.txt &")
+		self.mpTopo.commandTo(self.mpConfig.client, "sleep 2")
 
 		self.mpTopo.commandTo(self.mpConfig.client, "netstat -sn > netstat_client_before")
 
