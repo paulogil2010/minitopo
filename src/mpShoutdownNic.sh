@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 shutdown () {
     HOUR=$(date +%H:%M:%S)
@@ -17,7 +17,7 @@ turn_on () {
 run () {
     ifconfig Client-eth1
     output=$?
-    if [output == 1]; then
+    if [$output == 1]; then
         sleep 10
         shutdown
         sleep 15

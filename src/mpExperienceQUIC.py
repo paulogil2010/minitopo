@@ -64,8 +64,8 @@ class MpExperienceQUIC(MpExperience):
 		if int(self.multipath) <= 0:
 			s = "./main"
 		else:
-			# s = "./main"
-			s = "sh /home/mininet/git/minitopo/src/mpShoutdownNic.sh & ./main"
+			s = "./main"
+			# s = "sh /home/mininet/git/minitopo/src/mpShoutdownNic.sh & ./main"
 			s += " -m"
 		s += " -c https://" + self.mpConfig.getServerIP() + ":6121/random &>" + MpExperienceQUIC.CLIENT_LOG
 		return s
@@ -97,7 +97,7 @@ class MpExperienceQUIC(MpExperience):
 		self.mpTopo.commandTo(self.mpConfig.server, cmd)
 
 		self.mpTopo.commandTo(self.mpConfig.client, "sleep 2")
-		self.mpTopo.commandTo(self.mpConfig.server, "ifstat -i Client-eth0,Client-eth1 > client_ifstat.txt &")
+		self.mpTopo.commandTo(self.mpConfig.client, "ifstat -i Client-eth0,Client-eth1 > client_ifstat.txt &")
 
 		self.mpTopo.commandTo(self.mpConfig.client, "netstat -sn > netstat_client_before")
 
@@ -110,6 +110,7 @@ class MpExperienceQUIC(MpExperience):
 		self.mpTopo.commandTo(self.mpConfig.client, "netstat -sn > netstat_client_after")
 
 		self.mpTopo.commandTo(self.mpConfig.server, "pkill -f " + MpExperienceQUIC.SERVER_GO_FILE)
+		self.mpTopo.commandTo(self.mpConfig.server, "pkill -f ifstat")
 
 		self.mpTopo.commandTo(self.mpConfig.client, "sleep 2")
 		# Need to delete the go-build directory in tmp; could lead to no more space left error

@@ -54,8 +54,8 @@ class  MpExperienceHTTPS(MpExperience):
 		return s
 
 	def getHTTPSClientCmd(self):
-		# s = "(time " +MpExperienceHTTPS.WGET_BIN + " https://" + self.mpConfig.getServerIP() + \
-		s = "sh /home/mininet/git/minitopo/src/mpShoutdownNic.sh & (time " +MpExperienceHTTPS.WGET_BIN + " https://" + self.mpConfig.getServerIP() + \
+		# s = "sh /home/mininet/git/minitopo/src/mpShoutdownNic.sh & (time " +MpExperienceHTTPS.WGET_BIN + " https://" + self.mpConfig.getServerIP() + \
+		s = "(time " +MpExperienceHTTPS.WGET_BIN + " https://" + self.mpConfig.getServerIP() + \
 				"/" + self.file + " --no-check-certificate) &>" + MpExperienceHTTPS.CLIENT_LOG
 		print(s)
 		return s
@@ -76,9 +76,10 @@ class  MpExperienceHTTPS(MpExperience):
 		self.mpTopo.commandTo(self.mpConfig.client, "sleep 2")
 		cmd = self.getHTTPSClientCmd()
 		self.mpTopo.commandTo(self.mpConfig.client, "netstat -sn > netstat_client_before")
-		self.mpTopo.commandTo(self.mpConfig.server, "ifstat -i Client-eth0,Client-eth1 > client_ifstat.txt &")
+		self.mpTopo.commandTo(self.mpConfig.client, "ifstat -i Client-eth0,Client-eth1 > client_ifstat.txt &")
 		self.mpTopo.commandTo(self.mpConfig.client, cmd)
 		self.mpTopo.commandTo(self.mpConfig.server, "netstat -sn > netstat_server_after")
 		self.mpTopo.commandTo(self.mpConfig.client, "netstat -sn > netstat_client_after")
 		self.mpTopo.commandTo(self.mpConfig.server, "pkill -f https.py")
+		self.mpTopo.commandTo(self.mpConfig.server, "pkill -f ifstat")
 		self.mpTopo.commandTo(self.mpConfig.client, "sleep 2")
